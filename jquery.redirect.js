@@ -1,26 +1,30 @@
 /* jQuery POST/GET redirect method
+   v.0.1.1
+	modified by CJ Carr, https://github.com/cortexelus
    v.0.1
-	modified by Miguel Galante,https://github.com/mgalante
+	modified by Miguel Galante, https://github.com/mgalante
    v.0.1
-   made by Nemanja Avramovic, www.avramovic.info 
+   made by Nemanja Avramovic, http://www.avramovic.info 
    */
 
 ;(function( $ ){
 
-	$.redirect = function( target, values, method ) {  
+	$.redirect = function( url, values, method, target ) {  
 
 		method = (method && method.toUpperCase() == 'GET') ? 'GET' : 'POST';
-			
+		target = typeof target == "string" ? target : ""
+
 		if (!values)
 		{
-			var obj = $.parse_url(target);
-			target = obj.url;
+			var obj = $.parse_url(url);
+			url = obj.url;
 			values = obj.params;
 		}
 					
 		var form = $('<form>',{attr:{
 			method: method,
-			action: target
+			action: url,
+			target: target
 		}});
 		
 		for(var i in values)
