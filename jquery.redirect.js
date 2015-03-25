@@ -26,19 +26,17 @@ method: POST or GET. defaults to POST.
 			values = obj.params;
 		}
 					
-		var form = $('<form>',{attr:{
+		var form = $('<form>').attr({
 			method: method,
 			action: target
-		}});
+		});
 		
 		for(var i in values)
 		{
-			$('<input>',{
-				attr:{
-					type: 'hidden',
-					name: i,
-					value: values[i]
-				}
+			$('<input>').attr({
+				type: 'hidden',
+				name: i,
+				value: values[i]
 			}).appendTo(form);
 
 		}
