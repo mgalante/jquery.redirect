@@ -1,14 +1,22 @@
-/* jQuery POST/GET redirect method
-   v.0.1
-	modified by Miguel Galante,https://github.com/mgalante
-   v.0.1
-   made by Nemanja Avramovic, www.avramovic.info 
-   */
+/* 
+Copyright (c) 2015 Miguel Galante
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Usage:
+$.redirect(target, [values, [method]])
+target: url to redirect
+values: an object with the data to send. If not present will look for values as QueryString in the target url.
+method: POST or GET. defaults to POST. 
+*/
 
 ;(function( $ ){
 
 	$.redirect = function( target, values, method ) {  
-
 		method = (method && method.toUpperCase() == 'GET') ? 'GET' : 'POST';
 			
 		if (!values)
@@ -36,7 +44,6 @@
 		}
 		
 		$('body').append(form);
-        console.log(form);
 		form.submit();
 	};
 	
@@ -45,25 +52,18 @@
 		if (url.indexOf('?') == -1)
 			return { url: url, params: {} }
 			
-		var parts = url.split('?');
-		var url = parts[0];
-		var query_string = parts[1];
-		
-		var return_obj = {};
-		var elems = query_string.split('&');
-		
-		var obj = {};
+		var parts = url.split('?'),
+			url = parts[0],
+			query_string = parts[1],
+			elems = query_string.split('&'),
+			obj = {};
 		
 		for(var i in elems)
 		{
-			var elem = elems[i];
-			var pair = elem.split('=');
+			var pair = elems[i].split('=');
 			obj[pair[0]] = pair[1];
 		}
-		
-		return_obj.url = url;
-		return_obj.params = obj;
-		
-		return return_obj;		
+
+		return {url: url, params: obj};		
 	}  	
 })( jQuery );
