@@ -31,15 +31,43 @@ method: POST or GET. defaults to POST.
 			action: target
 		});
 		
-		for(var i in values)
-		{
-			$('<input>').attr({
-				type: 'hidden',
-				name: i,
-				value: values[i]
-			}).appendTo(form);
+		var getInput = function(name, value, parent) {
 
-		}
+			var parentString;
+
+			if( parent.length > 0 ) {
+				parentString = parent[0];
+				if( parent.length > 1 ) {
+					for( var i = 1; i < parent.length; ++i ) {
+						parentString = parentString + "[" + parent[i] + "]";
+					}
+				}
+			}
+
+			if( parentString != null ) {
+				name = parentString + "[" + name + "]";
+			}
+
+			return $("<input>").attr({
+				type: "hidden",
+				name: name,
+				value: value
+			});
+		};
+		var iterateValues = function(values, parent) {
+			var iterateParent = [];
+			for(var i in values)
+			{
+				if( typeof values[i] == "object" ) {
+					iterateParent = parent.slice();
+					iterateParent.push(i);
+					iterateValues(values[i], iterateParent);
+				} else {
+					getInput(i, values[i], parent).appendTo(form);
+				}
+			}
+		};
+		iterateValues(values, []);
 		
 		$('body').append(form);
 		form.submit();
