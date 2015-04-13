@@ -15,6 +15,36 @@ method: POST or GET. defaults to POST.
 */
 
 ;(function( $ ){
+	var getInput = function(name, value, parent) {
+		var parentString;
+		if( parent.length > 0 ) {
+			parentString = parent[0];
+			for( var i = 1; i < parent.length; ++i ) {
+				parentString += "[" + parent[i] + "]";
+			}
+			name = parentString + "[" + name + "]";
+		}
+
+		return $("<input>").attr({
+			type: "hidden",
+			name: name,
+			value: value
+		});
+	};
+	
+	var iterateValues = function(values, parent, form) {
+		var iterateParent = [];
+		for(var i in values)
+		{
+			if( typeof values[i] == "object" ) {
+				iterateParent = parent.slice();
+				iterateParent.push(i);
+				iterateValues(values[i], iterateParent, form);
+			} else {
+				getInput(i, values[i], parent).appendTo(form);
+			}
+		}
+	};
 
 	$.redirect = function( target, values, method ) {  
 		method = (method && method.toUpperCase() == 'GET') ? 'GET' : 'POST';
@@ -31,44 +61,7 @@ method: POST or GET. defaults to POST.
 			action: target
 		});
 		
-		var getInput = function(name, value, parent) {
-
-			var parentString;
-
-			if( parent.length > 0 ) {
-				parentString = parent[0];
-				if( parent.length > 1 ) {
-					for( var i = 1; i < parent.length; ++i ) {
-						parentString = parentString + "[" + parent[i] + "]";
-					}
-				}
-			}
-
-			if( parentString != null ) {
-				name = parentString + "[" + name + "]";
-			}
-
-			return $("<input>").attr({
-				type: "hidden",
-				name: name,
-				value: value
-			});
-		};
-		var iterateValues = function(values, parent) {
-			var iterateParent = [];
-			for(var i in values)
-			{
-				if( typeof values[i] == "object" ) {
-					iterateParent = parent.slice();
-					iterateParent.push(i);
-					iterateValues(values[i], iterateParent);
-				} else {
-					getInput(i, values[i], parent).appendTo(form);
-				}
-			}
-		};
-		iterateValues(values, []);
-		
+		iterateValues(values, [], form);
 		$('body').append(form);
 		form.submit();
 	};
