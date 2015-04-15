@@ -8,11 +8,15 @@ A simple HTTP POST and GET Redirection Plugin for jQuery
 
 
 ## Usage:
- ```
+ ```javascript
+/**
+ * jQuery Redirect
+ * @param {string} target - Url of the redirection
+ * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+ * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+ */
 $.redirect(target, [values, [method]])
-target: url to redirect
-values: an object with the data to send. If not present will look for values as QueryString in the target url.
-method: POST or GET. defaults to POST. 
+
  ```
 
 ## How does it work?
