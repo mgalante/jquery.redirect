@@ -2,7 +2,7 @@
 JQuery Redirect v1.0
 
 Originaly created by Nemanja Avramovic, www.avramovic.info 
-Forked and mantained by Miguel Galante
+Forked and maintained by Miguel Galante
 
 Licensed under CC BY-SA 4.0 License: http://creativecommons.org/licenses/by-sa/4.0/
 
