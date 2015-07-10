@@ -9,12 +9,12 @@ Licensed under CC BY-SA 4.0 License: http://creativecommons.org/licenses/by-sa/4
 
 This means everyone is allowed to:
 
-Share — copy and redistribute the material in any medium or format
-Adapt — remix, transform, and build upon the material for any purpose, even commercially.
+Share - copy and redistribute the material in any medium or format
+Adapt - remix, transform, and build upon the material for any purpose, even commercially.
 Under following conditions:
 
-Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+ShareAlike - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 */
 
@@ -22,23 +22,25 @@ ShareAlike — If you remix, transform, or build upon the material, you must dis
 ;(function( $ ){
 /**
  * jQuery Redirect
- * @param {string} target - Url of the redirection
+ * @param {string} url - Url of the redirection
  * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+ * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
  */
-	$.redirect = function( target, values, method ) {  
+	$.redirect = function( url, values, method, target ) {  
 		method = (method && method.toUpperCase() == 'GET') ? 'GET' : 'POST';
 			
 		if (!values)
 		{
 			var obj = $.parse_url(target);
-			target = obj.url;
+			url = obj.url;
 			values = obj.params;
 		}
 					
 		var form = $('<form>').attr({
 			method: method,
-			action: target
+			action: url,
+			target: target
 		});
 		
 		iterateValues(values, [], form);
