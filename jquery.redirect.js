@@ -64,7 +64,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         url = parts[0];
 
         var i, pair, obj = {};
-        for (i = 0; i < elems.length; i++) {
+        for (i = 0; i < elems.length; i+= 1) {
             pair = elems[i].split('=');
             obj[pair[0]] = pair[1];
         }
