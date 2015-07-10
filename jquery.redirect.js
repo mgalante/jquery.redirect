@@ -1,8 +1,9 @@
 /* 
 JQuery Redirect v1.0
 
-Originaly created by Nemanja Avramovic, www.avramovic.info 
-Forked and maintained by Miguel Galante
+Modified work Copyright 2013, 2015  by Miguel Galante
+Original work Copyright (c) 2011, 2013 by Nemanja Avramovic, www.avramovic.info  
+
 
 Licensed under CC BY-SA 4.0 License: http://creativecommons.org/licenses/by-sa/4.0/
 
