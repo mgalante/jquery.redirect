@@ -11,11 +11,12 @@ A simple HTTP POST and GET Redirection Plugin for jQuery
  ```javascript
 /**
  * jQuery Redirect
- * @param {string} target - Url of the redirection
+ * @param {string} url - Url of the redirection
  * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+ * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
  */
-$.redirect(target, [values, [method]])
+$.redirect(url, [values, [method, [target]]])
 
  ```
 
