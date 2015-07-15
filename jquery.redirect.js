@@ -42,7 +42,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         });
 
         iterateValues(values, [], form);
-        form.appenTo('body').submit();
+        form.appendTo('body').submit();
     };
 
     //Utility Functions
