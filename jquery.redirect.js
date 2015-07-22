@@ -76,7 +76,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     };
 
     //Private Functions
-    var getInput = function (name, value, parent) {
+    var getInput = function (name, value, parent, array) {
         var parentString;
         if (parent.length > 0) {
             parentString = parent[0];
@@ -84,7 +84,12 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             for (i = 1; i < parent.length; i += 1) {
                 parentString += "[" + parent[i] + "]";
             }
-            name = parentString + "[" + name + "]";
+
+            if (array) {
+              name = parentString + "[]";
+            } else {
+              name = parentString + "[" + name + "]";
+            }
         }
 
         return $("<input>").attr({
@@ -94,15 +99,15 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         });
     };
 
-    var iterateValues = function (values, parent, form) {
+    var iterateValues = function (values, parent, form, array) {
         var i, iterateParent = [];
         for (i in values) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
                 iterateParent.push(i);
-                iterateValues(values[i], iterateParent, form);
+                iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
             } else {
-                getInput(i, values[i], parent).appendTo(form);
+                getInput(i, values[i], parent, array).appendTo(form);
             }
         }
     };
