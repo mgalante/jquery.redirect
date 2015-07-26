@@ -3,7 +3,7 @@ A simple HTTP POST and GET Redirection Plugin for jQuery
 
 * Easy to use
 * GET and POST requests
-* Compatible with jQuery 1.0 (or above) and jqlite
+* Compatible with jQuery, jQlite and Zepto.js
 * Supports nested objects and arrays
 
 
