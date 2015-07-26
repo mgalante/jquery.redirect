@@ -35,15 +35,17 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             values = obj.params;
         }
 
-        var form = $('<form>').attr({
-            method: method,
-            action: url,
-            target: target
-        });
+        var form = $('<form>')
+          .attr("method", method)
+          .attr("action", url);
+
+        if (target) {
+          form.attr("target", target);
+        }
 
         iterateValues(values, [], form);
         $('body').append(form);
-        form.trigger("submit");
+        form[0].submit();
     };
 
     //Utility Functions
@@ -93,11 +95,9 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             }
         }
 
-        return $("<input>").attr({
-            type: "hidden",
-            name: name,
-            value: value
-        });
+        return $("<input>").attr("type", "hidden")
+            .attr("name", name)
+            .attr("value", value);
     };
 
     var iterateValues = function (values, parent, form, array) {
@@ -108,8 +108,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
                 iterateParent.push(i);
                 iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
             } else {
-                getInput(i, values[i], parent, array).appendTo(form);
+                form.append(getInput(i, values[i], parent, array));
             }
         }
     };
-}(jQuery));
+}(window.jQuery || window.Zepto || window.jqlite));
