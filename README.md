@@ -23,6 +23,8 @@ $.redirect(url, [values, [method, [target]]])
 The function jQuery.redirect will create a form and populate it with the data (it supports nested values).
 
 ## How to install the plugin:
+
+### Manually Installation
 Just download jquery.rediect.js and include it in your html after jquery.js
 
  ```html
@@ -34,6 +36,34 @@ Just download jquery.rediect.js and include it in your html after jquery.js
  </head>
  <body>
      <!-- your content -->
+ </body>
+ </html>
+ ```
+ 
+### Using Bower
+ ```
+bower install jquery.redirect
+ ```
+
+##Example of use
+
+ ```html
+ <html>
+ <head>
+     <!-- other headers -->
+     <script src="jquery-XXX.js"></script>
+     <script src="jquery.redirect.js"></script>
+     <script>
+      jQuery(function($){
+      //OnClick testButton do a POST to a login.php with user and pasword
+       $("#testButton").click(function(){
+        $.redirect("/login.php",{ user: "johnDoe", password: "12345"}); 
+       });
+      }
+     </script>
+ </head>
+ <body>
+    <button id="testButton">Test Redirect</button>
  </body>
  </html>
  ```
