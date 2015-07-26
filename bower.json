@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "homepage": "https://github.com/mgalante/jquery.redirect.git",
   "authors": [
-    "Michael Galante"
+    "Miguel Galante",
+    "Nemanja Avramovic"
   ],
   "description": "A simple HTTP POST and GET Redirection Plugin for jQuery",
   "keywords": [
