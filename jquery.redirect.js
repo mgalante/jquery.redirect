@@ -43,7 +43,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
         iterateValues(values, [], form);
         $('body').append(form);
-        form.submit();
+        form.trigger("submit");
     };
 
     //Utility Functions
