@@ -1,6 +1,7 @@
 {
   "name": "jquery.redirect",
   "main": "jquery.redirect.js",
+  "ignore": [],
   "version": "1.0.0",
   "homepage": "https://github.com/mgalante/jquery.redirect.git",
   "authors": [
