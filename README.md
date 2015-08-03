@@ -6,23 +6,16 @@ A simple HTTP POST and GET Redirection Plugin for jQuery
 * Compatible with jQuery, jQlite and Zepto.js
 * Supports nested objects and arrays
 
-
-## Usage:
- ```javascript
-/**
- * jQuery Redirect
- * @param {string} url - Url of the redirection
- * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
- * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
- * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
- */
-$.redirect(url, [values, [method, [target]]])
- ```
-
 ## How does it work?
 The function jQuery.redirect will create a form and populate it with the data (it supports nested values).
 
-## How to install the plugin:
+## Installation
+
+### Using Bower
+
+ ```bash
+bower install jquery.redirect
+ ```
 
 ### Manually Installation
 Just download jquery.rediect.js and include it in your html after jquery.js
@@ -40,10 +33,18 @@ Just download jquery.rediect.js and include it in your html after jquery.js
  </html>
  ```
  
-### Using Bower
+## Usage
+ ```javascript
+/**
+ * jQuery Redirect
+ * @param {string} url - Url of the redirection
+ * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+ * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+ * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
+ */
+$.redirect(url, [values, [method, [target]]])
  ```
-bower install jquery.redirect
- ```
+
 
 ##Example of use
 
