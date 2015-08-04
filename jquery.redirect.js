@@ -105,7 +105,11 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         for (i in values) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
-                iterateParent.push(i);
+                if (array) {
+                  iterateParent.push('');
+                } else {
+                  iterateParent.push(i);
+                }
                 iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
             } else {
                 form.append(getInput(i, values[i], parent, array));
