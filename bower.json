@@ -6,7 +6,8 @@
   "homepage": "https://github.com/mgalante/jquery.redirect.git",
   "authors": [
     "Miguel Galante",
-    "Nemanja Avramovic"
+    "Nemanja Avramovic",
+    "Kurt Preston"
   ],
   "description": "A simple HTTP POST and GET Redirection Plugin for jQuery",
   "keywords": [
@@ -17,5 +18,11 @@
     "redirect",
     "download"
   ],
-  "license": "CC BY-SA 4.0"
+  "license": "CC BY-SA 4.0",
+  "dependencies": {
+    "jquery": ">=1"
+  },
+  "devDependencies": {
+    "jquery-serialize-object": "~2.5.0"
+  }
 }

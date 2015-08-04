@@ -35,16 +35,10 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             values = obj.params;
         }
 
-        var form = $('<form>')
-          .attr("method", method)
-          .attr("action", url);
+        var form = $.redirectBuildForm(url, values, method, target);
 
-        if (target) {
-          form.attr("target", target);
-        }
-
-        iterateValues(values, [], form);
         $('body').append(form);
+
         form[0].submit();
     };
 
@@ -79,13 +73,27 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     };
 
     //Private Functions
+    $.redirectBuildForm = function(url, values, method, target) {
+        var form = $('<form>')
+          .attr("method", method)
+          .attr("action", url);
+
+        if (target) {
+          form.attr("target", target);
+        }
+
+        iterateValues(values, [], form);
+
+        return form;
+    };
+
     var getInput = function (name, value, parent, array) {
         var parentString;
         if (parent.length > 0) {
             parentString = parent[0];
             var i;
             for (i = 1; i < parent.length; i += 1) {
-                parentString += "[" + parent[i] + "]";
+              parentString += "[" + parent[i] + "]";
             }
 
             if (array) {
