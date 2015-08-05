@@ -1,5 +1,5 @@
 /*
-jQuery Redirect v1.0.0
+jQuery Redirect v1.0.1
 
 Copyright (c) 2013-2015 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
