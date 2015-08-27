@@ -1,5 +1,5 @@
 /*
-jQuery Redirect v1.0.0
+jQuery Redirect v1.0.1
 
 Copyright (c) 2013-2015 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
@@ -105,7 +105,11 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         for (i in values) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
-                iterateParent.push(i);
+                if (array) {
+                  iterateParent.push('');
+                } else {
+                  iterateParent.push(i);
+                }
                 iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
             } else {
                 form.append(getInput(i, values[i], parent, array));
