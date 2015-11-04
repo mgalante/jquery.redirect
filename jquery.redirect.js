@@ -25,8 +25,9 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
      * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
      * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
+     * @param {bool} indexArrays - (optional) When true array indexes will be maintained.
      */
-    $.redirect = function (url, values, method, target) {
+    $.redirect = function (url, values, method, target, indexArrays) {
         method = (method && method.toUpperCase() === 'GET') ? 'GET' : 'POST';
 
         if (!values) {
@@ -43,7 +44,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
           form.attr("target", target);
         }
 
-        iterateValues(values, [], form);
+        iterateValues(values, [], form, indexArrays);
         $('body').append(form);
         form[0].submit();
     };
@@ -100,7 +101,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             .attr("value", value);
     };
 
-    var iterateValues = function (values, parent, form, array) {
+    var iterateValues = function (values, parent, form, indexArrays, array) {
         var i, iterateParent = [];
         for (i in values) {
             if (typeof values[i] === "object") {
@@ -110,7 +111,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
                 } else {
                   iterateParent.push(i);
                 }
-                iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
+                iterateValues(values[i], iterateParent, form, indexArrays, indexArrays && Array.isArray(values[i]));
             } else {
                 form.append(getInput(i, values[i], parent, array));
             }
