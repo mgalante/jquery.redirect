@@ -43,9 +43,11 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
           form.attr("target", target);
         }
 
+        var submit = {}; //Create a symbol
+        form[0][submit] = form[0].submit;
         iterateValues(values, [], form);
         $('body').append(form);
-        form[0].submit();
+        form[0][submit]();
     };
 
     //Utility Functions
