@@ -5,23 +5,24 @@
     <title></title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="../jquery.redirect.js"></script>
+  </head>
+  <body>
+    <button type="button" name="button">TEST</button>
+
     <script type="text/javascript">
     //Log instead of redirect for testing purposes
 
 jQuery(function($){
-    $.redirect("http://posttestserver.com/post.php",
-    {
-      user: "johnDoe",
-      password: "12345",
-      submit: "name"
-    },
-    "POST", "_blank");
+  $("button").click(function(){
+      $.redirect("http://posttestserver.com/post.php",
+      {
+        user: "johnDoe",
+        password: "12345",
+        submit: "name"
+      },
+      "POST", "_blank");
   });
-
-
+});
     </script>
-  </head>
-  <body>
-
   </body>
 </html>
