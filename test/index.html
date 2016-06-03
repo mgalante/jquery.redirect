@@ -8,7 +8,17 @@
     <script type="text/javascript">
     //Log instead of redirect for testing purposes
 
-    $.redirect("http://posttestserver.com/post.php",{ user: "johnDoe", password: "12345", submit: "name"});
+jQuery(function($){
+    $.redirect("http://posttestserver.com/post.php",
+    {
+      user: "johnDoe",
+      password: "12345",
+      submit: "name"
+    },
+    "POST", "_blank");
+  });
+
+
     </script>
   </head>
   <body>
