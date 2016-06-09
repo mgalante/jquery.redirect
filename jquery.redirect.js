@@ -27,7 +27,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
      */
     $.redirect = function (url, values, method, target) {
-        method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase())) ? method.toUpperCase() : 'POST';
+        method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) != -1) ? method.toUpperCase() : 'POST';
 
         if (!values) {
             var obj = $.parseUrl(url);
