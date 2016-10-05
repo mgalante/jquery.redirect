@@ -29,6 +29,11 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     $.redirect = function (url, values, method, target) {
         method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) != -1) ? method.toUpperCase() : 'POST';
 
+        
+        url = url.split("#");
+        var hash = url[1] ? ("#" + url[1]) : "";
+        url = url[0];
+
         if (!values) {
             var obj = $.parseUrl(url);
             url = obj.url;
@@ -37,8 +42,9 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
         var form = $('<form>')
           .attr("method", method)
-          .attr("action", url);
+          .attr("action", url + hash);
 
+    
         if (target) {
           form.attr("target", target);
         }
@@ -47,7 +53,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         form[0][submit] = form[0].submit;
         iterateValues(values, [], form);
         $('body').append(form);
-        form[0][submit]();
+    //    form[0][submit]();
+        console.log(form);
     };
 
     //Utility Functions
@@ -57,6 +64,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @returns {object} an object with the parsed url with the following structure {url: URL, params:{ KEY: VALUE }}
      */
     $.parseUrl = function (url) {
+        
         if (url.indexOf('?') === -1) {
             return {
                 url: url,
