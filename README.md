@@ -41,8 +41,9 @@ Just download jquery.rediect.js and include it in your html after jquery.js
  * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
  * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
+ * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
  */
-$.redirect(url, [values, [method, [target]]])
+$.redirect(url, [values, [method, [target, [traditional]]])
  ```
 
 
