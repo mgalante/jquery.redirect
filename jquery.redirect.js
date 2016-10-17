@@ -25,7 +25,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
      * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
      * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
-     * @param {string} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+     * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
      */
     $.redirect = function (url, values, method, target, traditional) {
         method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
