@@ -25,9 +25,10 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
      * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
      * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
+     * @param {string} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
      */
-    $.redirect = function (url, values, method, target) {
-        method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) != -1) ? method.toUpperCase() : 'POST';
+    $.redirect = function (url, values, method, target, traditional) {
+        method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
 
         
         url = url.split("#");
@@ -51,7 +52,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
         var submit = {}; //Create a symbol
         form[0][submit] = form[0].submit;
-        iterateValues(values, [], form);
+        iterateValues(values, [], form, null, traditional);
         $('body').append(form);
         form[0][submit]();
     };
@@ -88,7 +89,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     };
 
     //Private Functions
-    var getInput = function (name, value, parent, array) {
+    var getInput = function (name, value, parent, array, traditional) {
         var parentString;
         if (parent.length > 0) {
             parentString = parent[0];
@@ -98,7 +99,10 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             }
 
             if (array) {
-              name = parentString + "[]";
+                if (traditional)
+                    name = parentString;
+                else
+                    name = parentString + "[]";
             } else {
               name = parentString + "[" + name + "]";
             }
@@ -109,7 +113,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             .attr("value", value);
     };
 
-    var iterateValues = function (values, parent, form, array) {
+    var iterateValues = function (values, parent, form, array, traditional) {
         var i, iterateParent = [];
         for (i in values) {
             if (typeof values[i] === "object") {
@@ -119,9 +123,9 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
                 } else {
                   iterateParent.push(i);
                 }
-                iterateValues(values[i], iterateParent, form, Array.isArray(values[i]));
+                iterateValues(values[i], iterateParent, form, Array.isArray(values[i]), traditional);
             } else {
-                form.append(getInput(i, values[i], parent, array));
+                form.append(getInput(i, values[i], parent, array, traditional));
             }
         }
     };
