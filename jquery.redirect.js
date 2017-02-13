@@ -115,7 +115,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
     var iterateValues = function (values, parent, form, array, traditional) {
         var i, iterateParent = [];
-        for (i in values) {
+        Object.keys(values).forEach(function(i) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
                 if (array) {
@@ -127,6 +127,6 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             } else {
                 form.append(getInput(i, values[i], parent, array, traditional));
             }
-        }
+        });
     };
 }(window.jQuery || window.Zepto || window.jqlite));
