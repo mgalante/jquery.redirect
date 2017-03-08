@@ -1,6 +1,7 @@
 /*
-jQuery Redirect v1.0.4
+jQuery Redirect v1.0.5
 
+Copyright (c) 2016-2019 Luigi Cangiano
 Copyright (c) 2013-2016 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
 
@@ -23,32 +24,36 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * jQuery Redirect
      * @param {string} url - Url of the redirection
      * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
-     * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
-     * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
+     * @param {string} method - (optional) The HTTP verb can be "get" or "post" (defaults to "post")
+     * @param {string} target - (optional) The target of the form. Accepted values are "_blank", "_self", "_parent", "_top" or "<framename>". "_blank" will open the url in a new window. (defaults to "_self"). Cfr: https://www.w3schools.com/tags/att_form_target.asp
+	 * @param {string} enctype - (optional) The enctype attribute specifies how the form-data should be encoded when submitting it to the server. Accepted values are "application/x-www-form-urlencoded", "multipart/form-data" or "text/plain". (defaults to "application/x-www-form-urlencoded"). Cfr: https://www.w3schools.com/tags/att_form_enctype.asp
      * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
      */
-    $.redirect = function (url, values, method, target, traditional) {
-        method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
+    $.redirect = function (url, values, method, target, enctype, traditional) {
+		if($.type(url) !== "string")
+			$.error("Parameter 'url' is not a string.");
+		if(url.trim().length <= 0)
+			$.error("Parameter 'url' is an empty string.");
+		url = url.trim();
+		values = $.type(values) === "object" ? values : {};
+        method = ($.type(method) === "string" && ["get", "post", "put", "delete"].indexOf(method.toLowerCase()) !== -1) ? method.toLowerCase() : 'post';
+		target = $.type(target) === "string" ? (["_blank", "_self", "_parent", "_top"].indexOf(target.toLowerCase()) !== -1 ? target.toLowerCase() : target) : '_self';
+		enctype = ($.type(enctype) === "string" && ["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"].indexOf(enctype.toLowerCase()) !== -1) ? enctype.toLowerCase() : 'application/x-www-form-urlencoded';
+		traditional = $.type(traditional) === "boolean" ? traditional : false;
 
-        
         url = url.split("#");
         var hash = url[1] ? ("#" + url[1]) : "";
-        url = url[0];
-
-        if (!values) {
-            var obj = $.parseUrl(url);
-            url = obj.url;
-            values = obj.params;
-        }
+		var parsed = $.parseUrl(url[0]);
+		url = parsed.url;
+		values = $.extend(true, {}, parsed.params, values);
 
         var form = $('<form>')
-          .attr("method", method)
-          .attr("action", url + hash);
+			.attr("method", method)
+			.attr("action", url + hash)
+			.attr("target", target);
 
-    
-        if (target) {
-          form.attr("target", target);
-        }
+		if(method === "post")
+			form.attr("enctype", enctype);
 
         var submit = {}; //Create a symbol
         form[0][submit] = form[0].submit;
@@ -64,69 +69,67 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @returns {object} an object with the parsed url with the following structure {url: URL, params:{ KEY: VALUE }}
      */
     $.parseUrl = function (url) {
-        
-        if (url.indexOf('?') === -1) {
-            return {
-                url: url,
-                params: {}
-            };
-        }
-        var parts = url.split('?'),
-            query_string = parts[1],
-            elems = query_string.split('&');
-        url = parts[0];
+		if($.type(url) !== "string")
+			$.error("Parameter 'url' is not a string.");
+		url = url.trim();
 
-        var i, pair, obj = {};
-        for (i = 0; i < elems.length; i+= 1) {
-            pair = elems[i].split('=');
-            obj[pair[0]] = pair[1];
-        }
+		var back = {
+			url: url,
+			params: {}
+		};
 
-        return {
-            url: url,
-            params: obj
-        };
+		if (url.indexOf('?') !== -1) {
+			var parts = url.split('?'),
+				query_string = parts[1],
+				couples = query_string.split('&');
+			back['url'] = parts[0];
+
+			var pair = {};
+			for (var i = 0; i < couples.length; i++) {
+				pair = couples[i].split('=');
+				back['params'][pair[0]] = pair[1];
+			}
+		}
+
+        return back;
     };
 
     //Private Functions
     var getInput = function (name, value, parent, array, traditional) {
-        var parentString;
-        if (parent.length > 0) {
-            parentString = parent[0];
-            var i;
-            for (i = 1; i < parent.length; i += 1) {
-                parentString += "[" + parent[i] + "]";
-            }
+		var back = $('<input>')
+			.attr("type", "hidden")
+			.attr("name", name)
+			.attr("value", value);
 
-            if (array) {
+        if(parent.length > 0) {
+            var parentString = parent[0];
+            for(var i = 1; i < parent.length; i++)
+                parentString += "[" + parent[i] + "]";
+
+            if(array) {
                 if (traditional)
-                    name = parentString;
+                    back.attr("name", parentString);
                 else
-                    name = parentString + "[]";
-            } else {
-              name = parentString + "[" + name + "]";
-            }
+                    back.attr("name", parentString + "[]");
+            } else
+				back.attr("name", parentString + "[" + name + "]")
         }
 
-        return $("<input>").attr("type", "hidden")
-            .attr("name", name)
-            .attr("value", value);
+		return back;
     };
 
     var iterateValues = function (values, parent, form, array, traditional) {
         var i, iterateParent = [];
         Object.keys(values).forEach(function(i) {
-            if (typeof values[i] === "object") {
+            if(typeof values[i] === "object") {
                 iterateParent = parent.slice();
-                if (array) {
-                  iterateParent.push('');
-                } else {
-                  iterateParent.push(i);
-                }
+                if(array)
+					iterateParent.push('');
+                else
+					iterateParent.push(i);
                 iterateValues(values[i], iterateParent, form, Array.isArray(values[i]), traditional);
-            } else {
+            } else
                 form.append(getInput(i, values[i], parent, array, traditional));
-            }
         });
     };
 }(window.jQuery || window.Zepto || window.jqlite));
