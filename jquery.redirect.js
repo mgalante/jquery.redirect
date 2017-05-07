@@ -41,6 +41,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             values = obj.params;
         }
 
+        values = removeNulls(values);
+
         var form = $('<form>')
           .attr("method", method)
           .attr("action", url + hash);
@@ -129,4 +131,20 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             }
         });
     };
+
+    var removeNulls = function (values) {
+        var propNames = Object.getOwnPropertyNames(values);
+        for (var i = 0; i < propNames.length; i++) {
+            var propName = propNames[i];
+            if (values[propName] === null || values[propName] === undefined) {
+                delete values[propName];
+            } else if (typeof values[propName] === 'valuesect') {
+                values[propName] = removeNulls(values[propName]);
+            } else if (values[propName].length < 1) {
+                delete values[propName];
+            }
+        }
+        return values;
+    };
+
 }(window.jQuery || window.Zepto || window.jqlite));
