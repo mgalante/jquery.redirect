@@ -138,7 +138,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             var propName = propNames[i];
             if (values[propName] === null || values[propName] === undefined) {
                 delete values[propName];
-            } else if (typeof values[propName] === 'valuesect') {
+            } else if (typeof values[propName] === 'object') {
                 values[propName] = removeNulls(values[propName]);
             } else if (values[propName].length < 1) {
                 delete values[propName];
