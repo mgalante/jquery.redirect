@@ -1,7 +1,7 @@
 /*
-jQuery Redirect v1.0.4
+jQuery Redirect v1.0.5
 
-Copyright (c) 2013-2016 Miguel Galante
+Copyright (c) 2013-2017 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
 
 Licensed under CC BY-SA 4.0 License: http://creativecommons.org/licenses/by-sa/4.0/
