@@ -32,7 +32,10 @@ Just download jquery.rediect.js and include it in your html after jquery.js
  </body>
  </html>
  ```
- 
+## CDN
+If you prefer, you can use [RawGit CDN hosted version](https://cdn.rawgit.com/mgalante/jquery.redirect/master/jquery.redirect.js)
+
+
 ## Usage
  ```javascript
 /**
