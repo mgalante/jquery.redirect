@@ -115,19 +115,17 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             .attr("value", value);
     };
 
-    var iterateValues = function (values, parent, form, array, traditional) {
+    var iterateValues = function (values, parent, form, isArray, traditional) {
         var i, iterateParent = [];
         Object.keys(values).forEach(function(i) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
-                if (array) {
-                  iterateParent.push('');
-                } else {
+                if (!isArray) {
                   iterateParent.push(i);
                 }
                 iterateValues(values[i], iterateParent, form, Array.isArray(values[i]), traditional);
             } else {
-                form.append(getInput(i, values[i], parent, array, traditional));
+                form.append(getInput(i, values[i], parent, isArray, traditional));
             }
         });
     };
