@@ -14,12 +14,23 @@
 
 jQuery(function($){
   $("button").click(function(){
-      $.redirect("http://posttestserver.com/post.php#lalalal",
-      {
+      $.redirect("https://mgalante.000webhostapp.com/",
+      [{
         user: "johnDoe",
         password: "12345",
-        submit: "name"
-      },
+        submit: "name",
+		phones: [
+		 {area:"11", number:"4444444"},
+		 {area:"22", number:"5555555"}
+		]
+      },{
+        user: "gastonJones",
+        password: "5431",
+        submit: "Gastón Jones",
+		phones: [
+		 {area:"11", number:"41321"}
+		]
+      }],
       "POST", "_blank");
   });
 });
