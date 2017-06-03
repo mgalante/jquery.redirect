@@ -1,0 +1,22 @@
+{
+  "name": "jquery.redirect",
+  "version": "1.0.4",
+  "description": "A simple HTTP POST and GET Redirection Plugin for jQuery",
+  "main": "jquery.redirect.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mappy/jquery.redirect.git"
+  },
+  "author": "Miguel Galante",
+  "license": "CC-BY-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/Mappy/jquery.redirect/issues"
+  },
+  "homepage": "https://github.com/Mappy/jquery.redirect#readme"
+}
