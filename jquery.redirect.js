@@ -1,5 +1,5 @@
 /*
-jQuery Redirect v1.0.6
+jQuery Redirect v1.0.7
 
 Copyright (c) 2013-2017 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
@@ -26,10 +26,12 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
      * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
      * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+     * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
      */
-    $.redirect = function (url, values, method, target, traditional) {
+    $.redirect = function (url, values, method, target, traditional, redirectTop) {
         method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
 
+        redirectTop = redirectTop || false;
         
         url = url.split("#");
         var hash = url[1] ? ("#" + url[1]) : "";
@@ -55,7 +57,12 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         var submit = {}; //Create a symbol
         form[0][submit] = form[0].submit;
         iterateValues(values, [], form, null, traditional);
-        $('body').append(form);
+        
+        if(redirectTop) {
+            $('body', window.top.document).append(form);
+        } else {
+            $('body').append(form);
+        }
         form[0][submit]();
     };
 

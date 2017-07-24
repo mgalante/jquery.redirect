@@ -45,8 +45,9 @@ If you prefer, you can use [RawGit CDN hosted version](https://cdn.rawgit.com/mg
  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
  * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
  * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+ * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
  */
-$.redirect(url, [values, [method, [target, [traditional]]])
+$.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
  ```
 
 
