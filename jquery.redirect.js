@@ -1,5 +1,5 @@
 /*
-jQuery Redirect v1.0.7
+jQuery Redirect v1.1.0
 
 Copyright (c) 2013-2017 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
@@ -62,7 +62,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
         var submit = form[0].submit;
         iterateValues(values, [], form, null, traditional);
-        
+
         return { form: form, submit: function () { submit.call(form[0]); } };
     }
     //Utility Functions

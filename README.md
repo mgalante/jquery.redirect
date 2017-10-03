@@ -17,6 +17,18 @@ The function jQuery.redirect will create a form and populate it with the data (i
 bower install jquery.redirect
  ```
 
+### Using NPM
+
+ ```bash
+npm install --save jquery.redirect
+ ```
+
+### Using Yarn
+
+ ```bash
+yarn add jquery.redirect
+ ```
+ 
 ### Manually Installation
 Just download jquery.rediect.js and include it in your html after jquery.js
 
@@ -51,7 +63,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
  ```
 
 
-##Example of use
+##Example of use with Object
 
  ```html
  <html>
@@ -65,11 +77,44 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
        $("#testButton").click(function(){
         $.redirect("/login.php",{ user: "johnDoe", password: "12345"}); 
        });
-      }
+      });
      </script>
  </head>
  <body>
     <button id="testButton">Test Redirect</button>
  </body>
  </html>
+ ```
+
+
+##Example of use with links
+
+ ```html
+ <html>
+ <head>
+     <!-- other headers -->
+     <script src="jquery-XXX.js"></script>
+     <script src="jquery.redirect.js"></script>
+     <script>
+      jQuery(function($){ 
+      //OnClick link do a POST to a login.php with query string
+      // data (user and pasword in this case)
+       $("body").on("click",".post-redirect", function(){
+         $.redirect($(this).attr("href")); 
+       });
+      });
+     </script>
+ </head>
+ <body>
+    <a href="/login.php?user=johnDoe&password=12345" class="post-redirect">Test redirect</a>
+ </body>
+ </html>
+ ```
+
+
+##Running Tests with Yarn
+
+ ```bash
+yarn install
+yarn test
  ```
