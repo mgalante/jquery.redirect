@@ -29,10 +29,16 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
      */
     $.redirect = function (url, values, method, target, traditional, redirectTop) {
+        redirectTop = redirectTop || false;
+        var generatedForm = $.redirect.getForm(url, values, method, target, traditional);
+        $('body', redirectTop ? window.top.document : undefined).append(generatedForm.form);
+        generatedForm.submit();
+    };
+
+
+    $.redirect.getForm = function (url, values, method, target, traditional) {
         method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
 
-        redirectTop = redirectTop || false;
-        
         url = url.split("#");
         var hash = url[1] ? ("#" + url[1]) : "";
         url = url[0];
@@ -46,26 +52,19 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         values = removeNulls(values);
 
         var form = $('<form>')
-          .attr("method", method)
-          .attr("action", url + hash);
+            .attr("method", method)
+            .attr("action", url + hash);
 
-    
+
         if (target) {
-          form.attr("target", target);
+            form.attr("target", target);
         }
 
-        var submit = {}; //Create a symbol
-        form[0][submit] = form[0].submit;
+        var submit = form[0].submit;
         iterateValues(values, [], form, null, traditional);
         
-        if(redirectTop) {
-            $('body', window.top.document).append(form);
-        } else {
-            $('body').append(form);
-        }
-        form[0][submit]();
-    };
-
+        return { form: form, submit: function () { submit.call(form[0]); } };
+    }
     //Utility Functions
     /**
      * Url and QueryString Parser.
@@ -73,7 +72,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @returns {object} an object with the parsed url with the following structure {url: URL, params:{ KEY: VALUE }}
      */
     $.parseUrl = function (url) {
-        
+
         if (url.indexOf('?') === -1) {
             return {
                 url: url,
@@ -86,7 +85,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         url = parts[0];
 
         var i, pair, obj = {};
-        for (i = 0; i < elems.length; i+= 1) {
+        for (i = 0; i < elems.length; i += 1) {
             pair = elems[i].split('=');
             obj[pair[0]] = pair[1];
         }
@@ -113,7 +112,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
                 else
                     name = parentString + "[" + name + "]";
             } else {
-              name = parentString + "[" + name + "]";
+                name = parentString + "[" + name + "]";
             }
         }
 
@@ -124,7 +123,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 
     var iterateValues = function (values, parent, form, isArray, traditional) {
         var i, iterateParent = [];
-        Object.keys(values).forEach(function(i) {
+        Object.keys(values).forEach(function (i) {
             if (typeof values[i] === "object") {
                 iterateParent = parent.slice();
                 iterateParent.push(i);

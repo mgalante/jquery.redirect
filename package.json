@@ -5,5 +5,15 @@
   "main": "jquery.redirect.js",
   "author": "Miguel Galante, Nemanja Avramovic",
   "homepage": "https://github.com/mgalante/jquery.redirect",
-  "license": "CC BY-SA 4.0"
+  "license": "CC BY-SA 4.0",
+  "devDependencies": {
+    "jasmine-core": "lastest",
+    "jquery": "^3.2.1",
+    "karma": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-jasmine": "latest"
+  },
+  "scripts": {
+    "test": "karma start"
+  }
 }
