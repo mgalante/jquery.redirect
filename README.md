@@ -63,7 +63,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
  ```
 
 
-##Example of use with Object
+## Example of use with Object
 
  ```html
  <html>
@@ -87,7 +87,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
  ```
 
 
-##Example of use with links
+## Example of use with links
 
  ```html
  <html>
@@ -112,7 +112,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
  ```
 
 
-##Running Tests with Yarn
+## Running Tests with Yarn
 
  ```bash
 yarn install
