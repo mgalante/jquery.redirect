@@ -35,7 +35,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 	    values: null,
 	    method: "POST",
 	    target: null,
-	    traditional: true,
+	    traditional: false,
 	    redirectTop: false
 	};
 
