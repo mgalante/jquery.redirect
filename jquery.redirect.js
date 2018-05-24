@@ -1,7 +1,7 @@
 /*
-jQuery Redirect v1.1.1
+jQuery Redirect v1.1.2
 
-Copyright (c) 2013-2017 Miguel Galante
+Copyright (c) 2013-2018 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
 
 Licensed under CC BY-SA 4.0 License: http://creativecommons.org/licenses/by-sa/4.0/
@@ -18,17 +18,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 */
 (function ($) {
 	'use strict';
-
-	/**
-     * jQuery Redirect
-     * @param {string} url - Url of the redirection
-     * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
-     * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
-     * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
-     * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-     * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
-     */
-
+	
     //Defaults configuration
 	var defaults = {
 	    url: null,
@@ -39,21 +29,38 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 	    redirectTop: false
 	};
 
+	/**
+     * jQuery Redirect
+     * @param {string} url - Url of the redirection
+     * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+     * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+     * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
+     * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+     * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+     *//**
+     * jQuery Redirect
+	 * @param {string} opts - Options object
+	 * @param {string} opts.url - Url of the redirection
+     * @param {Object} opts.values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+     * @param {string} opts.method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+     * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
+     * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+     * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+     */
 	$.redirect = function (url, values, method, target, traditional, redirectTop) {
-	    var opts = {
-	        url: url,
-	        values: values,
-	        method: method,
-	        target: target,
-	        traditional: traditional,
-	        redirectTop: redirectTop
-	    };
-	    var config = $.extend(defaults, opts);
-	    $.redirect(config);
-	};
+		var opts = url;
+		if(typeof url !== "object"){
+			var opts = {
+				url: url,
+				values: values,
+				method: method,
+				target: target,
+				traditional: traditional,
+				redirectTop: redirectTop
+			};
+		}
 
-	$.redirect = function (opts) {
-	    var config = $.extend(defaults, opts);
+		var config = $.extend({},defaults, opts);
 	    var generatedForm = $.redirect.getForm(config.url, config.values, config.method, config.target, config.traditional);
 	    $('body', config.redirectTop ? window.top.document : undefined).append(generatedForm.form);
 	    generatedForm.submit();
@@ -171,5 +178,4 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
 		}
 		return values;
 	};
-
 }(window.jQuery || window.Zepto || window.jqlite));

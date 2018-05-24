@@ -7,7 +7,7 @@
   "homepage": "https://github.com/mgalante/jquery.redirect",
   "license": "CC BY-SA 4.0",
   "devDependencies": {
-    "jasmine-core": "lastest",
+    "jasmine-core": "^3.1.0",
     "jquery": "^3.2.1",
     "karma": "latest",
     "karma-chrome-launcher": "latest",
