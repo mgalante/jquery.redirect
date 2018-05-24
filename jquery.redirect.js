@@ -28,13 +28,43 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
      * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
      * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
      */
-    $.redirect = function (url, values, method, target, traditional, redirectTop) {
-        redirectTop = redirectTop || false;
-        var generatedForm = $.redirect.getForm(url, values, method, target, traditional);
-        $('body', redirectTop ? window.top.document : undefined).append(generatedForm.form);
-        generatedForm.submit();
+
+    //Defaults configuration
+    var defaults = {
+        url: null,
+        values: null,
+        method: "POST",
+        target: null,
+        traditional: true,
+        redirectTop: false
     };
 
+    $.redirect = function redirect() {
+        if (arguments.length === 1 && typeof (arguments[0]) === 'object')
+            return redirectOneArg.apply(this, arguments);
+
+        return redirectArgs.apply(this, arguments);
+    }
+
+    function redirectArgs (url, values, method, target, traditional, redirectTop) {
+        var opts = {
+            url: url,
+            values: values,
+            method: method,
+            target: target,
+            traditional: traditional,
+            redirectTop: redirectTop
+        };
+        var config = $.extend(defaults, opts);
+        redirectOneArg(config);
+    };
+
+    function redirectOneArg (opts) {
+        var config = $.extend(defaults, opts);
+        var generatedForm = $.redirect.getForm(config.url, config.values, config.method, config.target, config.traditional);
+        $('body', config.redirectTop ? window.top.document : undefined).append(generatedForm.form);
+        generatedForm.submit();
+    };
 
     $.redirect.getForm = function (url, values, method, target, traditional) {
         method = (method && ["GET", "POST", "PUT", "DELETE"].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
