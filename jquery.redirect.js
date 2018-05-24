@@ -86,67 +86,67 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
             .attr("action", url + hash);
 
 
-		if (target) {
-			form.attr("target", target);
-		}
+        if (target) {
+            form.attr("target", target);
+        }
 
-		var submit = form[0].submit;
-		iterateValues(values, [], form, null, traditional);
+        var submit = form[0].submit;
+        iterateValues(values, [], form, null, traditional);
 
-		return { form: form, submit: function () { submit.call(form[0]); } };
-	}
-	//Utility Functions
-	/**
+        return { form: form, submit: function () { submit.call(form[0]); } };
+    }
+    //Utility Functions
+    /**
      * Url and QueryString Parser.
      * @param {string} url - a Url to parse.
      * @returns {object} an object with the parsed url with the following structure {url: URL, params:{ KEY: VALUE }}
      */
-	$.parseUrl = function (url) {
+    $.parseUrl = function (url) {
 
-		if (url.indexOf('?') === -1) {
-			return {
-				url: url,
-				params: {}
-			};
-		}
-		var parts = url.split('?'),
+        if (url.indexOf('?') === -1) {
+            return {
+                url: url,
+                params: {}
+            };
+        }
+        var parts = url.split('?'),
             query_string = parts[1],
             elems = query_string.split('&');
-		url = parts[0];
+        url = parts[0];
 
-		var i, pair, obj = {};
-		for (i = 0; i < elems.length; i += 1) {
-			pair = elems[i].split('=');
-			obj[pair[0]] = pair[1];
-		}
+        var i, pair, obj = {};
+        for (i = 0; i < elems.length; i += 1) {
+            pair = elems[i].split('=');
+            obj[pair[0]] = pair[1];
+        }
 
-		return {
-			url: url,
-			params: obj
-		};
-	};
+        return {
+            url: url,
+            params: obj
+        };
+    };
 
-	//Private Functions
-	var getInput = function (name, value, parent, array, traditional) {
-		var parentString;
-		if (parent.length > 0) {
-			parentString = parent[0];
-			var i;
-			for (i = 1; i < parent.length; i += 1) {
-				parentString += "[" + parent[i] + "]";
-			}
+    //Private Functions
+    var getInput = function (name, value, parent, array, traditional) {
+        var parentString;
+        if (parent.length > 0) {
+            parentString = parent[0];
+            var i;
+            for (i = 1; i < parent.length; i += 1) {
+                parentString += "[" + parent[i] + "]";
+            }
 
-			if (array) {
-				if (traditional)
-					name = parentString;
-				else
-					name = parentString + "[" + name + "]";
-			} else {
-				name = parentString + "[" + name + "]";
-			}
-		}
+            if (array) {
+                if (traditional)
+                    name = parentString;
+                else
+                    name = parentString + "[" + name + "]";
+            } else {
+                name = parentString + "[" + name + "]";
+            }
+        }
 
-		return $("<input>").attr("type", "hidden")
+        return $("<input>").attr("type", "hidden")
             .attr("name", name)
             .attr("value", value);
 	};
