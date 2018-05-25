@@ -33,6 +33,9 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         var generatedForm = $.redirect.getForm(url, values, method, target, traditional);
         $('body', redirectTop ? window.top.document : undefined).append(generatedForm.form);
         generatedForm.submit();
+        
+        if (target == '_blank')
+            generatedForm.form.remove();
     };
 
 
