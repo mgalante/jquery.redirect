@@ -75,7 +75,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
       jQuery(function($){
       //OnClick testButton do a POST to a login.php with user and pasword
        $("#testButton").click(function(){
-        $.redirect("/login.php",{ user: "johnDoe", password: "12345"}); 
+        $.redirect("/login.php", {user: "johnDoe", password: "12345"}, "POST", "_blank"); 
        });
       });
      </script>
