@@ -28,9 +28,9 @@ npm install --save jquery.redirect
  ```bash
 yarn add jquery.redirect
  ```
- 
-### Manually Installation
-Just download jquery.rediect.js and include it in your html after jquery.js
+
+### Manual Installation
+Just download jquery.redirect.js and include it in your html after jquery.js
 
  ```html
  <html>
@@ -53,11 +53,11 @@ If you prefer, you can use [RawGit CDN hosted version](https://cdn.rawgit.com/mg
 /**
  * jQuery Redirect
  * @param {string} url - Url of the redirection
- * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+ * @param {Object} values - (optional) An object with the data to send. If not present it will look for values as QueryString in the target url.
  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
  * @param {string} target - (optional) The target of the form. If you set "_blank" will open the url in a new window.
  * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
- * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+ * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
  */
 $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
 
@@ -69,7 +69,7 @@ $.redirect(url, [values, [method, [target, [traditional, [redirectTop]]]]])
 * @param {string} opts.method - (optional) The HTTP verb can be GET or POST (defaults to POST)
 * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
 * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-* @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+* @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
 */
 $.redirect(opts)
  ```
@@ -86,7 +86,7 @@ $.redirect(opts)
       jQuery(function($){
       //OnClick testButton do a POST to a login.php with user and pasword
        $("#testButton").click(function(){
-        $.redirect("/login.php", {user: "johnDoe", password: "12345"}, "POST", "_blank"); 
+        $.redirect("/login.php", {user: "johnDoe", password: "12345"}, "POST", "_blank");
        });
       });
      </script>
@@ -107,11 +107,11 @@ $.redirect(opts)
      <script src="jquery-XXX.js"></script>
      <script src="jquery.redirect.js"></script>
      <script>
-      jQuery(function($){ 
+      jQuery(function($){
       //OnClick link do a POST to a login.php with query string
       // data (user and pasword in this case)
        $("body").on("click",".post-redirect", function(){
-         $.redirect($(this).attr("href")); 
+         $.redirect($(this).attr("href"));
        });
       });
      </script>

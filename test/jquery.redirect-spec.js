@@ -2,7 +2,7 @@
 
 describe('jquery.redirect', function () {
   var url = '/test';
-  var method = 'POST'
+  var method = 'POST';
 
   it('creates a form representing the object passed in', function () {
     var query = {

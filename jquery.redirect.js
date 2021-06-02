@@ -35,7 +35,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
   * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-  * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+  * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
   *//**
   * jQuery Redirect
   * @param {string} opts - Options object
@@ -44,12 +44,13 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} opts.method - (optional) The HTTP verb can be GET or POST (defaults to POST)
   * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-  * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window. 
+  * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
   */
+
   $.redirect = function (url, values, method, target, traditional, redirectTop) {
     var opts = url;
     if (typeof url !== "object") {
-      var opts = {
+        opts = {
         url: url,
         values: values,
         method: method,
@@ -94,7 +95,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     iterateValues(values, [], form, null, traditional);
 
     return { form: form, submit: function () { submit.call(form[0]); } };
-  }
+  };
 
   //Utility Functions
 	/**
