@@ -7,6 +7,11 @@
   "homepage": "https://github.com/mgalante/jquery.redirect",
   "license": "CC-BY-SA-4.0",
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "jasmine-core": "^3.1.0",
     "jquery": "^3.2.1",
     "karma": "latest",
@@ -14,6 +19,8 @@
     "karma-jasmine": "latest"
   },
   "scripts": {
-    "test": "karma start"
+    "lint": "eslint --ext .js .",
+    "lint:fix": "eslint --ext .js --fix .",
+    "test": "karma start --single-run"
   }
 }

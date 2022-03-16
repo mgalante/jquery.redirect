@@ -11,16 +11,16 @@ describe('jquery.redirect', function () {
       boolean: true,
       array: ['1', '2', '3'],
       object: {
-        a: "a",
-        b: "b"
+        a: 'a',
+        b: 'b'
       },
       array_with_object: [{
         a: '1',
-        b: '2',
+        b: '2'
       },
       {
         a: '3',
-        b: '4',
+        b: '4'
       }],
       empty: null,
       nested: {
