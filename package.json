@@ -15,8 +15,9 @@
     "jasmine-core": "^3.1.0",
     "jquery": "^3.2.1",
     "karma": "latest",
-    "karma-chrome-launcher": "latest",
-    "karma-jasmine": "latest"
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-jasmine": "latest",
+    "puppeteer": "^13.5.1"
   },
   "scripts": {
     "lint": "eslint --ext .js .",
