@@ -1,0 +1,12 @@
+env:
+  browser: true
+  jquery: true
+  jasmine: true
+extends:
+  - standard
+parserOptions:
+  sourceType: script
+  ecmaVersion: 5
+rules:
+  no-var: 0
+  semi: [2, "always"]
