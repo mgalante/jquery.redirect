@@ -15,7 +15,7 @@ Under following conditions:
 Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 ShareAlike - If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 */
-; (function ($) {
+(function ($) {
   'use strict';
 
   // Defaults configuration
@@ -29,25 +29,32 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   };
 
   /**
-  * jQuery Redirect
-  * @param {string} url - Url of the redirection
-  * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
-  * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
-  * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
-  * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-  * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
-  *//**
-  * jQuery Redirect
-  * @param {string} opts - Options object
-  * @param {string} opts.url - Url of the redirection
-  * @param {Object} opts.values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
-  * @param {string} opts.method - (optional) The HTTP verb can be GET or POST (defaults to POST)
-  * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
-  * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
-  * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
-  */
+   * jQuery Redirect
+   * @param {string} url - Url of the redirection
+   * @param {Object} values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+   * @param {string} method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+   * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
+   * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+   * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
+   */ /**
+   * jQuery Redirect
+   * @param {string} opts - Options object
+   * @param {string} opts.url - Url of the redirection
+   * @param {Object} opts.values - (optional) An object with the data to send. If not present will look for values as QueryString in the target url.
+   * @param {string} opts.method - (optional) The HTTP verb can be GET or POST (defaults to POST)
+   * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
+   * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
+   * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
+   */
 
-  $.redirect = function (url, values, method, target, traditional, redirectTop) {
+  $.redirect = function (
+    url,
+    values,
+    method,
+    target,
+    traditional,
+    redirectTop
+  ) {
     var opts = url;
     if (typeof url !== 'object') {
       opts = {
@@ -61,17 +68,29 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     }
 
     var config = $.extend({}, defaults, opts);
-    var generatedForm = $.redirect.getForm(config.url, config.values, config.method, config.target, config.traditional);
-    $('body', config.redirectTop ? window.top.document : undefined).append(generatedForm.form);
+    var generatedForm = $.redirect.getForm(
+      config.url,
+      config.values,
+      config.method,
+      config.target,
+      config.traditional
+    );
+    $('body', config.redirectTop ? window.top.document : undefined).append(
+      generatedForm.form
+    );
     generatedForm.submit();
     generatedForm.form.remove();
   };
 
   $.redirect.getForm = function (url, values, method, target, traditional) {
-    method = (method && ['GET', 'POST', 'PUT', 'DELETE'].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
+    method =
+      method &&
+      ['GET', 'POST', 'PUT', 'DELETE'].indexOf(method.toUpperCase()) !== -1
+        ? method.toUpperCase()
+        : 'POST';
 
     url = url.split('#');
-    var hash = url[1] ? ('#' + url[1]) : '';
+    var hash = url[1] ? '#' + url[1] : '';
     url = url[0];
 
     if (!values) {
@@ -93,7 +112,12 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     var submit = form[0].submit;
     iterateValues(values, [], form, null, traditional);
 
-    return { form: form, submit: function () { submit.call(form[0]); } };
+    return {
+      form: form,
+      submit: function () {
+        submit.call(form[0]);
+      }
+    };
   };
 
   // Utility Functions
@@ -149,7 +173,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
       }
     }
 
-    return $('<input>').attr('type', 'hidden')
+    return $('<input>')
+      .attr('type', 'hidden')
       .attr('name', name)
       .attr('value', value);
   };
@@ -160,7 +185,13 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
       if (typeof values[i] === 'object') {
         iterateParent = parent.slice();
         iterateParent.push(i);
-        iterateValues(values[i], iterateParent, form, Array.isArray(values[i]), traditional);
+        iterateValues(
+          values[i],
+          iterateParent,
+          form,
+          Array.isArray(values[i]),
+          traditional
+        );
       } else {
         form.append(getInput(i, values[i], parent, isArray, traditional));
       }
@@ -175,10 +206,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         delete values[propName];
       } else if (typeof values[propName] === 'object') {
         values[propName] = removeNulls(values[propName]);
-      } else if (values[propName].length < 1) {
-        delete values[propName];
       }
     }
     return values;
   };
-}(window.jQuery || window.Zepto || window.jqlite));
+})(window.jQuery || window.Zepto || window.jqlite);
