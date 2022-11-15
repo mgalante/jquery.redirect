@@ -25,7 +25,8 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     method: 'POST',
     target: null,
     traditional: false,
-    redirectTop: false
+    redirectTop: false,
+    isRemoveFieldBlank: false,
   };
 
   /**
@@ -36,6 +37,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
   * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
+  * @param {boolean} isRemoveFieldBlank - (optional) If isRemoveFieldBlank is true, the field blank will be removed
   *//**
   * jQuery Redirect
   * @param {string} opts - Options object
@@ -45,9 +47,10 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
   * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
+  * @param {boolean} opts.isRemoveFieldBlank - (optional) If isRemoveFieldBlank is true, the field blank will be removed
   */
 
-  $.redirect = function (url, values, method, target, traditional, redirectTop) {
+  $.redirect = function (url, values, method, target, traditional, redirectTop, isRemoveFieldBlank) {
     var opts = url;
     if (typeof url !== 'object') {
       opts = {
@@ -56,18 +59,19 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         method: method,
         target: target,
         traditional: traditional,
-        redirectTop: redirectTop
+        redirectTop: redirectTop,
+        isRemoveFieldBlank: isRemoveFieldBlank,
       };
     }
 
     var config = $.extend({}, defaults, opts);
-    var generatedForm = $.redirect.getForm(config.url, config.values, config.method, config.target, config.traditional);
+    var generatedForm = $.redirect.getForm(config.url, config.values, config.method, config.target, config.traditional, config.isRemoveFieldBlank);
     $('body', config.redirectTop ? window.top.document : undefined).append(generatedForm.form);
     generatedForm.submit();
     generatedForm.form.remove();
   };
 
-  $.redirect.getForm = function (url, values, method, target, traditional) {
+  $.redirect.getForm = function (url, values, method, target, traditional, isRemoveFieldBlank) {
     method = (method && ['GET', 'POST', 'PUT', 'DELETE'].indexOf(method.toUpperCase()) !== -1) ? method.toUpperCase() : 'POST';
 
     url = url.split('#');
@@ -80,7 +84,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
       values = obj.params;
     }
 
-    values = removeNulls(values);
+    values = removeNulls(values, isRemoveFieldBlank);
 
     var form = $('<form>')
       .attr('method', method)
@@ -167,15 +171,15 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     });
   };
 
-  var removeNulls = function (values) {
+  var removeNulls = function (values, isRemoveFieldBlank) {
     var propNames = Object.getOwnPropertyNames(values);
     for (var i = 0; i < propNames.length; i++) {
       var propName = propNames[i];
       if (values[propName] === null || values[propName] === undefined) {
         delete values[propName];
       } else if (typeof values[propName] === 'object') {
-        values[propName] = removeNulls(values[propName]);
-      } else if (values[propName].length < 1) {
+        values[propName] = removeNulls(values[propName], isRemoveFieldBlank);
+      } else if (values[propName].length < 1 && isRemoveFieldBlank) {
         delete values[propName];
       }
     }
