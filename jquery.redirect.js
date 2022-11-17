@@ -37,7 +37,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
   * @param {boolean} redirectTop - (optional) If its called from a iframe, force to navigate the top window.
-  * @param {boolean} shouldKeepBlankFields - (optional) If shouldKeepBlankFields is true, the field blank will be removed
+  * @param {boolean} shouldKeepBlankFields - (optional) If shouldKeepBlankFields is false, blank fields will be removed.
   *//**
   * jQuery Redirect
   * @param {string} opts - Options object
@@ -47,7 +47,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
   * @param {string} opts.target - (optional) The target of the form. "_blank" will open the url in a new window.
   * @param {boolean} opts.traditional - (optional) This provides the same function as jquery's ajax function. The brackets are omitted on the field name if its an array.  This allows arrays to work with MVC.net among others.
   * @param {boolean} opts.redirectTop - (optional) If its called from a iframe, force to navigate the top window.
-  * @param {boolean} opts.shouldKeepBlankFields - (optional) If shouldKeepBlankFields is true, the field blank will be removed
+  * @param {boolean} opts.shouldKeepBlankFields - (optional) If shouldKeepBlankFields is false, blank fields will be removed.
   */
 
   $.redirect = function (url, values, method, target, traditional, redirectTop, shouldKeepBlankFields) {

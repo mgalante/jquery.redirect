@@ -9,6 +9,7 @@ describe('jquery.redirect', function () {
       string: 'string',
       number: 5,
       boolean: true,
+      shouldKeepBlankFields: true,
       array: ['1', '2', '3'],
       object: {
         a: 'a',
@@ -38,6 +39,7 @@ describe('jquery.redirect', function () {
       '<input type="hidden" name="string" value="string">',
       '<input type="hidden" name="number" value="5">',
       '<input type="hidden" name="boolean" value="true">',
+      '<input type="hidden" name="shouldKeepBlankFields" value="true">',
       '<input type="hidden" name="array[0]" value="1">',
       '<input type="hidden" name="array[1]" value="2">',
       '<input type="hidden" name="array[2]" value="3">',
