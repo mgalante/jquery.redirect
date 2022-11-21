@@ -55,7 +55,7 @@ describe('jquery.redirect', function () {
     ].join(''));
   });
 
-  it("creates a form with shouldKeepBlankFields false", function () {
+  it('discards empty fields with empty value', function () {
     var query = {
       string: '',
       number: 5,
@@ -64,9 +64,9 @@ describe('jquery.redirect', function () {
       object: {
         a: 'a',
         b: ''
-      },
-    }
-    var formGenerated = $.redirect.getForm(url, query, method, null, null, false)
+      }
+    };
+    var formGenerated = $.redirect.getForm(url, query, method, null, null);
 
     expect(formGenerated.form.html()).toEqual([
       '<input type="hidden" name="number" value="5">',
@@ -74,11 +74,11 @@ describe('jquery.redirect', function () {
       '<input type="hidden" name="array[0]" value="1">',
       '<input type="hidden" name="array[1]" value="2">',
       '<input type="hidden" name="array[2]" value="3">',
-      '<input type="hidden" name="object[a]" value="a">',
-    ].join(''))
-  })
+      '<input type="hidden" name="object[a]" value="a">'
+    ].join(''));
+  });
 
-  it("creates a form with shouldKeepBlankFields true", function () {
+  it('keeps field with empty value when shouldKeepBlankFields is set to true', function () {
     var query = {
       string: '',
       number: 5,
@@ -87,9 +87,9 @@ describe('jquery.redirect', function () {
       object: {
         a: '',
         b: 'b'
-      },
-    }
-    var formGenerated = $.redirect.getForm(url, query, method, null, null, true)
+      }
+    };
+    var formGenerated = $.redirect.getForm(url, query, method, null, null, true);
 
     expect(formGenerated.form.html()).toEqual([
       '<input type="hidden" name="string" value="">',
@@ -99,7 +99,7 @@ describe('jquery.redirect', function () {
       '<input type="hidden" name="array[1]" value="2">',
       '<input type="hidden" name="array[2]" value="3">',
       '<input type="hidden" name="object[a]" value="">',
-      '<input type="hidden" name="object[b]" value="b">',
-    ].join(''))
-  })
+      '<input type="hidden" name="object[b]" value="b">'
+    ].join(''));
+  });
 });

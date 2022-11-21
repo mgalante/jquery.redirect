@@ -1,5 +1,5 @@
 /*
-jQuery Redirect v1.1.4
+jQuery Redirect v1.2.0
 
 Copyright (c) 2013-2022 Miguel Galante
 Copyright (c) 2011-2013 Nemanja Avramovic, www.avramovic.info
@@ -26,7 +26,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
     target: null,
     traditional: false,
     redirectTop: false,
-    shouldKeepBlankFields: false,
+    shouldKeepBlankFields: false
   };
 
   /**
@@ -60,7 +60,7 @@ ShareAlike - If you remix, transform, or build upon the material, you must distr
         target: target,
         traditional: traditional,
         redirectTop: redirectTop,
-        shouldKeepBlankFields: shouldKeepBlankFields,
+        shouldKeepBlankFields: shouldKeepBlankFields
       };
     }
 
