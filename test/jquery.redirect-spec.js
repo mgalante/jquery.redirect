@@ -54,4 +54,52 @@ describe('jquery.redirect', function () {
       '<input type="hidden" name="nested[array_with_object][0][nested_key]" value="1">'
     ].join(''));
   });
+
+  it('discards empty fields with empty value', function () {
+    var query = {
+      string: '',
+      number: 5,
+      boolean: true,
+      array: ['1', '2', '3'],
+      object: {
+        a: 'a',
+        b: ''
+      }
+    };
+    var formGenerated = $.redirect.getForm(url, query, method, null, null);
+
+    expect(formGenerated.form.html()).toEqual([
+      '<input type="hidden" name="number" value="5">',
+      '<input type="hidden" name="boolean" value="true">',
+      '<input type="hidden" name="array[0]" value="1">',
+      '<input type="hidden" name="array[1]" value="2">',
+      '<input type="hidden" name="array[2]" value="3">',
+      '<input type="hidden" name="object[a]" value="a">'
+    ].join(''));
+  });
+
+  it('keeps field with empty value when shouldKeepBlankFields is set to true', function () {
+    var query = {
+      string: '',
+      number: 5,
+      boolean: true,
+      array: ['1', '2', '3'],
+      object: {
+        a: '',
+        b: 'b'
+      }
+    };
+    var formGenerated = $.redirect.getForm(url, query, method, null, null, true);
+
+    expect(formGenerated.form.html()).toEqual([
+      '<input type="hidden" name="string" value="">',
+      '<input type="hidden" name="number" value="5">',
+      '<input type="hidden" name="boolean" value="true">',
+      '<input type="hidden" name="array[0]" value="1">',
+      '<input type="hidden" name="array[1]" value="2">',
+      '<input type="hidden" name="array[2]" value="3">',
+      '<input type="hidden" name="object[a]" value="">',
+      '<input type="hidden" name="object[b]" value="b">'
+    ].join(''));
+  });
 });
